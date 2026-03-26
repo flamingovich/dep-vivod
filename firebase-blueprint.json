@@ -1,0 +1,26 @@
+{
+  "entities": {
+    "WidgetState": {
+      "title": "Widget State",
+      "description": "Real-time state for the OBS widget",
+      "type": "object",
+      "properties": {
+        "deposit": { "type": "number" },
+        "withdrawal": { "type": "number" },
+        "goalLikes": { "type": "number" },
+        "currentLikes": { "type": "number" },
+        "videoId": { "type": "string" },
+        "channelUrl": { "type": "string" },
+        "isAutoUpdate": { "type": "boolean" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["deposit", "withdrawal", "goalLikes", "currentLikes"]
+    }
+  },
+  "firestore": {
+    "/settings/widget": {
+      "schema": "WidgetState",
+      "description": "Single document holding the current widget state"
+    }
+  }
+}

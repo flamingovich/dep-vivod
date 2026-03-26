@@ -1,0 +1,5 @@
+{
+  "name": "OBS Stream Widget",
+  "description": "A real-time OBS widget for tracking deposits, withdrawals, and YouTube likes goal with automatic YouTube like count fetching.",
+  "requestFramePermissions": []
+}

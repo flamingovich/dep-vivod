@@ -1,0 +1,50 @@
+// ===============================================================
+// Assumed Data Model
+// ===============================================================
+//
+// Collection: settings
+// Document ID: widget
+// Fields:
+//   - deposit: number (required)
+//   - withdrawal: number (required)
+//   - goalLikes: number (required)
+//   - currentLikes: number (required)
+//   - videoId: string (optional)
+//   - isAutoUpdate: boolean (optional)
+//   - updatedAt: timestamp (optional)
+//
+// ===============================================================
+
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // Helper Functions
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+    
+    function isAdmin() {
+      return isAuthenticated() && 
+             request.auth.token.email == "flamingovich69@gmail.com";
+    }
+
+    function isValidWidgetState(data) {
+      // Basic type checking, allowing for optional fields and updatedAt
+      return data.deposit is number &&
+             data.withdrawal is number &&
+             data.goalLikes is number &&
+             data.currentLikes is number;
+    }
+
+    match /settings/widget {
+      // Public read and write as requested by user
+      allow read, write: if true;
+    }
+
+    // Default deny
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
